@@ -4,6 +4,7 @@ import { FishingLog } from './components/FishingLog';
 import { Button } from './components/Button';
 import { useState } from 'react';
 import { Popup } from './components/Popup';
+import { ControlPanel } from './components/ControlPanel';
 
 const GOAL_WIDTH = 30;
 
@@ -19,6 +20,8 @@ export default function App() {
   return (
     <div className="flex flex-col gap-3 items-center">
       <h1 className="text-3xl">Fishing Simulator</h1>
+
+      <ControlPanel />
 
       <div className="flex gap-2">
         <Button
