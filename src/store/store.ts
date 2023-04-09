@@ -41,6 +41,7 @@ export const useAppStore = create<AppState>()(
       player: {
         name: '',
         avatar: '',
+        terror: 0,
         hp: 10,
         position: [5, 5],
       },
