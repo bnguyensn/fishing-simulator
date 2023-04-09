@@ -6,6 +6,7 @@ export interface Player {
   name: string;
   avatar: string;
   hp: number;
+  terror: number;
   position: [number, number];
 }
 

@@ -62,7 +62,7 @@ export function Fishing({ goals }: FishingProps) {
     return () => {
       document.removeEventListener('keydown', handler);
     };
-  }, [x, goalRanges]);
+  }, [x, goalRanges, addReelRecord]);
 
   return (
     <div className="relative h-10 border" style={{ width: `${TOTAL_WIDTH}px` }}>

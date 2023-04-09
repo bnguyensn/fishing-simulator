@@ -34,6 +34,19 @@ export default function App() {
         }}
       />
 
+      <p>Day: 7, week: 15, year: 1864</p>
+
+      <p>Weather report: endless waves</p>
+
+      <p>Temperature: 15 Celcius</p>
+
+      <div className="flex gap-2 flex-wrap justify-center">
+        <Button text="To the sea!" />
+        <Button text="Return home" />
+        <Button text="Visit the shops" />
+        <Button text="Go to the chapel" />
+      </div>
+
       <Fishing goals={goals} />
 
       <FishingLog />
