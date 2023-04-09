@@ -35,7 +35,6 @@ export default function App() {
 
       <Popup title="Map" isOpen={isMapOpen}>
         <div className="flex flex-col">
-          <Map />
           <div className="p-2 flex flex-row-reverse gap-2">
             <Button
               text="Close"
@@ -45,6 +44,7 @@ export default function App() {
               }}
             />
           </div>
+          <Map />
         </div>
       </Popup>
     </div>

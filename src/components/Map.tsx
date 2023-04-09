@@ -1,5 +1,9 @@
 export function Map() {
   return (
-    <div className="aspect-square w-full bg-[url('/world-map.webp')] bg-cover" />
+    <img
+      src="/world-map.webp"
+      alt="the world map"
+      className="aspect-square object-cover w-full"
+    />
   );
 }
