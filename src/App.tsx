@@ -1,4 +1,5 @@
 import { Fishing, Goal } from './components/Fishing';
+import { FishingLog } from './components/FishingLog';
 
 const GOAL_WIDTH = 30;
 
@@ -14,6 +15,8 @@ export default function App() {
       <h1 className="text-3xl">Fishing Simulator</h1>
 
       <Fishing goals={goals} />
+
+      <FishingLog />
     </div>
   );
 }
