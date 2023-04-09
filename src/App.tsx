@@ -21,16 +21,11 @@ export default function App() {
     <div className="flex flex-col gap-3 items-center">
       <h1 className="text-3xl">Fishing Simulator</h1>
 
-      <ControlPanel />
-
-      <div className="flex gap-2">
-        <Button
-          text="Map"
-          onClick={() => {
-            setIsMapOpen(true);
-          }}
-        />
-      </div>
+      <ControlPanel
+        toggleMap={() => {
+          setIsMapOpen(true);
+        }}
+      />
 
       <Fishing goals={goals} />
 

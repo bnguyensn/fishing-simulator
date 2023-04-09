@@ -2,7 +2,11 @@ import { useAnimate } from 'framer-motion';
 import { Button } from './Button';
 import { useState } from 'react';
 
-export function ControlPanel() {
+export interface ControlPanelProps {
+  toggleMap: () => void;
+}
+
+export function ControlPanel({ toggleMap }: ControlPanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [controlPanelScope, animate] = useAnimate();
 
@@ -23,6 +27,7 @@ export function ControlPanel() {
       </div>
       <div className="flex flex-col bg-gray-200">
         <Button text="⚓" variant="icon" />
+        <Button text="📌" variant="icon" onClick={() => toggleMap()} />
         <Button text="🔨" variant="icon" />
       </div>
     </div>
