@@ -1,3 +1,4 @@
+import { Map } from './components/Map';
 import { Fishing, Goal } from './components/Fishing';
 import { FishingLog } from './components/FishingLog';
 
@@ -17,6 +18,8 @@ export default function App() {
       <Fishing goals={goals} />
 
       <FishingLog />
+
+      <Map />
     </div>
   );
 }
