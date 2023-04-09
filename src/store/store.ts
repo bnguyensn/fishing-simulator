@@ -49,9 +49,7 @@ export const useAppStore = create<AppState>()(
         set((state) => {
           state.player = { ...state.player, ...newValue };
         }),
-
       inventory: [],
-
       reelRecords: [],
       addReelRecord: (reelRecord) =>
         set((state) => {

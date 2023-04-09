@@ -19,12 +19,12 @@ export function Input({
   const inputId = `${label}-input`;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="w-full flex flex-col gap-1">
       <div className="flex flex-row gap-2 items-center">
         <label htmlFor={inputId}>{label}</label>
         <input
           id={inputId}
-          className="border-2 border-indigo-300 p-1"
+          className="w-full border-2 border-indigo-300 p-1"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}

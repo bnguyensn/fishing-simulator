@@ -3,6 +3,13 @@ import { Input } from './Input';
 import { Popup } from './Popup';
 import { useAppStore } from '../store/store';
 import { useState } from 'react';
+import { Select, SelectOption } from './Select';
+
+const avatarOptions: SelectOption[] = [
+  { value: '', label: 'None' },
+  { value: '/captain-male.webp', label: 'Male captain' },
+  { value: '/captain-female.webp', label: 'Female captain' },
+];
 
 export interface PlayerConfigProps {
   isOpen: boolean;
@@ -71,16 +78,12 @@ export function PlayerConfig({ isOpen, close }: PlayerConfigProps) {
             placeholder="mysterious stranger"
           />
 
-          <select
+          <Select
+            label="Avatar"
             value={playerAvatarLocal}
-            onChange={(e) => {
-              setPlayerAvatarLocal(e.target.value);
-            }}
-          >
-            <option value="">None</option>
-            <option value="/captain-male.webp">Male captain</option>
-            <option value="/captain-female.webp">Female captain</option>
-          </select>
+            setValue={(newValue) => setPlayerAvatarLocal(newValue)}
+            options={avatarOptions}
+          />
         </div>
       </div>
     </Popup>
