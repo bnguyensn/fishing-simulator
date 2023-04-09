@@ -1,0 +1,30 @@
+export type ButtonVariant = 'contained' | 'outlined';
+
+export interface ButtonProps {
+  text?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  variant?: 'contained' | 'outlined';
+}
+
+const classNameMapping: Record<ButtonVariant, string> = {
+  contained: `px-4 py-2 bg-blue-800 active:bg-blue-500 disabled:bg-gray-300 text-white disabled:text-gray-500 cursor-pointer disabled:cursor-not-allowed rounded-md`,
+  outlined: `px-4 py-2 bg-white active:bg-blue-200 disabled:bg-gray-300 text-blue-800 disabled:text-gray-500 border-2 border-blue-800 cursor-pointer disabled:cursor-not-allowed rounded-md`,
+};
+
+export function Button({
+  disabled = false,
+  onClick,
+  text = '',
+  variant = 'contained',
+}: ButtonProps) {
+  return (
+    <button
+      className={classNameMapping[variant]}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {text}
+    </button>
+  );
+}
