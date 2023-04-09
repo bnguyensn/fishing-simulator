@@ -45,13 +45,11 @@ export function Fishing({ goals }: FishingProps) {
           isInGoalRange(goalRange, xValue)
         );
         if (isValidHit) {
-          console.log('hit!');
           addReelRecord({
             type: ReelRecordType.HIT,
             timestamp: new Date().getTime(),
           });
         } else {
-          console.log('miss!');
           addReelRecord({
             type: ReelRecordType.MISS,
             timestamp: new Date().getTime(),
