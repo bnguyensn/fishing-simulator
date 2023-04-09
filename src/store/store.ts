@@ -9,6 +9,13 @@ export interface Player {
   position: [number, number];
 }
 
+export interface Item {
+  id: string;
+  name: string;
+  description: string;
+  obtainedTimestamp: number;
+}
+
 export enum ReelRecordType {
   'HIT' = 'HIT',
   'MISS' = 'MISS',
@@ -21,6 +28,8 @@ export interface ReelRecord {
 
 export interface AppState {
   player: Player;
+  updatePlayer: (newValue: Partial<Player>) => void;
+  inventory: Item[];
   reelRecords: ReelRecord[];
   addReelRecord: (reelRecord: ReelRecord) => void;
 }
@@ -34,6 +43,13 @@ export const useAppStore = create<AppState>()(
         hp: 10,
         position: [5, 5],
       },
+      updatePlayer: (newValue) =>
+        set((state) => {
+          state.player = { ...state.player, ...newValue };
+        }),
+
+      inventory: [],
+
       reelRecords: [],
       addReelRecord: (reelRecord) =>
         set((state) => {

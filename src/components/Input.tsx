@@ -4,10 +4,18 @@ export interface InputProps {
   value: string;
   setValue: (newValue: string) => void;
 
+  placeholder?: string;
+
   error?: string;
 }
 
-export function Input({ label, value, setValue, error }: InputProps) {
+export function Input({
+  label,
+  value,
+  setValue,
+  placeholder,
+  error,
+}: InputProps) {
   const inputId = `${label}-input`;
 
   return (
@@ -19,6 +27,7 @@ export function Input({ label, value, setValue, error }: InputProps) {
           className="border-2 border-indigo-300 p-1"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
         />
       </div>
 

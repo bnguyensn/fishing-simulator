@@ -5,6 +5,9 @@ import { Button } from './components/Button';
 import { useState } from 'react';
 import { Popup } from './components/Popup';
 import { ControlPanel } from './components/ControlPanel';
+import { Input } from './components/Input';
+import { useAppStore } from './store/store';
+import { PlayerConfig } from './components/PlayerConfig';
 
 const GOAL_WIDTH = 30;
 
@@ -15,6 +18,7 @@ const goals: Goal[] = [
 ];
 
 export default function App() {
+  const [isPlayerConfigOpen, setIsPlayerConfigOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   return (
@@ -22,6 +26,9 @@ export default function App() {
       <h1 className="text-3xl">Fishing Simulator</h1>
 
       <ControlPanel
+        togglePlayerConfig={() => {
+          setIsPlayerConfigOpen(true);
+        }}
         toggleMap={() => {
           setIsMapOpen(true);
         }}
@@ -30,6 +37,11 @@ export default function App() {
       <Fishing goals={goals} />
 
       <FishingLog />
+
+      <PlayerConfig
+        isOpen={isPlayerConfigOpen}
+        close={() => setIsPlayerConfigOpen(false)}
+      />
 
       <Popup title="Map" isOpen={isMapOpen}>
         <div className="flex flex-col">

@@ -3,10 +3,14 @@ import { Button } from './Button';
 import { useState } from 'react';
 
 export interface ControlPanelProps {
+  togglePlayerConfig: () => void;
   toggleMap: () => void;
 }
 
-export function ControlPanel({ toggleMap }: ControlPanelProps) {
+export function ControlPanel({
+  togglePlayerConfig,
+  toggleMap,
+}: ControlPanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [controlPanelScope, animate] = useAnimate();
 
@@ -26,7 +30,9 @@ export function ControlPanel({ toggleMap }: ControlPanelProps) {
         />
       </div>
       <div className="flex flex-col bg-gray-200">
-        <Button text="⚓" variant="icon" />
+        <Button text="⚓" variant="icon" onClick={() => togglePlayerConfig()} />
+        <Button text="📦" variant="icon" />
+        <Button text="📑" variant="icon" />
         <Button text="📌" variant="icon" onClick={() => toggleMap()} />
         <Button text="🔨" variant="icon" />
       </div>
