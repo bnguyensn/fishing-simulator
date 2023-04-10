@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { devtools } from 'zustand/middleware';
+import { Item, ItemId } from '../data/items';
 
 export interface Player {
   name: string;
@@ -8,12 +9,11 @@ export interface Player {
   hp: number;
   terror: number;
   position: [number, number];
+  inventoryCapacity: number;
 }
 
-export interface Item {
-  id: string;
-  name: string;
-  description: string;
+export interface InventoryItem {
+  itemId: ItemId;
   obtainedTimestamp: number;
 }
 
@@ -30,7 +30,7 @@ export interface ReelRecord {
 export interface AppState {
   player: Player;
   updatePlayer: (newValue: Partial<Player>) => void;
-  inventory: Item[];
+  inventory: Record<string, InventoryItem>;
   reelRecords: ReelRecord[];
   addReelRecord: (reelRecord: ReelRecord) => void;
 }
@@ -44,12 +44,15 @@ export const useAppStore = create<AppState>()(
         terror: 0,
         hp: 10,
         position: [5, 5],
+        inventoryCapacity: 25, // Should be divisible by 5 to fit the inventory grid
       },
       updatePlayer: (newValue) =>
         set((state) => {
           state.player = { ...state.player, ...newValue };
         }),
-      inventory: [],
+      inventory: {
+        '4': { itemId: 'fish-1', obtainedTimestamp: 0 },
+      },
       reelRecords: [],
       addReelRecord: (reelRecord) =>
         set((state) => {

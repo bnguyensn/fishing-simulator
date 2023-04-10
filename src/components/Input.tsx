@@ -24,7 +24,7 @@ export function Input({
         <label htmlFor={inputId}>{label}</label>
         <input
           id={inputId}
-          className="w-full border-2 border-indigo-300 p-1"
+          className="w-full border-2 border-indigo-300 p-1 bg-transparent"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}

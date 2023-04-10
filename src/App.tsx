@@ -5,9 +5,8 @@ import { Button } from './components/Button';
 import { useState } from 'react';
 import { Popup } from './components/Popup';
 import { ControlPanel } from './components/ControlPanel';
-import { Input } from './components/Input';
-import { useAppStore } from './store/store';
 import { PlayerConfig } from './components/PlayerConfig';
+import { Inventory } from './components/Inventory';
 
 const GOAL_WIDTH = 30;
 
@@ -19,20 +18,14 @@ const goals: Goal[] = [
 
 export default function App() {
   const [isPlayerConfigOpen, setIsPlayerConfigOpen] = useState(false);
+  const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   return (
-    <div className="flex flex-col gap-3 items-center">
-      <h1 className="text-3xl">Fishing Simulator</h1>
-
-      <ControlPanel
-        togglePlayerConfig={() => {
-          setIsPlayerConfigOpen(true);
-        }}
-        toggleMap={() => {
-          setIsMapOpen(true);
-        }}
-      />
+    <div className="h-screen bg-slate-900 text-white flex flex-col gap-3 items-center font-serif">
+      <h1 className="w-full p-2 bg-blue-950 text-3xl text-center">
+        Fishing Simulator
+      </h1>
 
       <p>Day: 7, week: 15, year: 1864</p>
 
@@ -56,8 +49,25 @@ export default function App() {
         close={() => setIsPlayerConfigOpen(false)}
       />
 
+      <Inventory
+        isOpen={isInventoryOpen}
+        close={() => setIsInventoryOpen(false)}
+      />
+
+      <ControlPanel
+        togglePlayerConfig={() => {
+          setIsPlayerConfigOpen(true);
+        }}
+        toggleInventory={() => {
+          setIsInventoryOpen(true);
+        }}
+        toggleMap={() => {
+          setIsMapOpen(true);
+        }}
+      />
+
       <Popup title="Map" isOpen={isMapOpen}>
-        <div className="flex flex-col">
+        <div className="p-2 flex flex-col">
           <div className="p-2 flex flex-row-reverse gap-2">
             <Button
               text="Close"
