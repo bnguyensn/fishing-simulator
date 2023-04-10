@@ -4,6 +4,7 @@ import { Popup } from './Popup';
 import { useAppStore } from '../store/store';
 import { useState } from 'react';
 import { Select, SelectOption } from './Select';
+import { Avatar } from './Avatar';
 
 const avatarOptions: SelectOption[] = [
   { value: '', label: 'None' },
@@ -57,17 +58,7 @@ export function PlayerConfig({ isOpen, close }: PlayerConfigProps) {
         </div>
 
         <div className="flex flex-col gap-2">
-          {playerAvatarLocal ? (
-            <img
-              src={playerAvatarLocal}
-              alt="Your profile"
-              className="w-20 h-20 rounded-md"
-            />
-          ) : (
-            <div className="w-20 h-20 rounded-md bg-slate-700 flex justify-center items-center text-center text-sm">
-              No photo available
-            </div>
-          )}
+          <Avatar src={playerAvatarLocal} alt="Your photo" />
 
           <Input
             label="Name"

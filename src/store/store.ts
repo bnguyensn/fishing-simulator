@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { devtools } from 'zustand/middleware';
-import { Item, ItemId } from '../data/items';
+import { ItemId } from '../data/items';
 
 export interface Player {
   name: string;
@@ -27,12 +27,33 @@ export interface ReelRecord {
   type: ReelRecordType;
 }
 
+export enum WeatherStatus {
+  'SUNNY' = 'Sunny',
+  'CLOUDY' = 'Cloudy',
+  'RAINY' = 'Rainy',
+  'THUNDERSTORM' = 'Thunderstorm',
+}
+
+export interface GameState {
+  date: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  time: {
+    hour: number;
+    minute: number;
+  };
+  weather: WeatherStatus;
+}
+
 export interface AppState {
   player: Player;
   updatePlayer: (newValue: Partial<Player>) => void;
   inventory: Record<string, InventoryItem>;
   reelRecords: ReelRecord[];
   addReelRecord: (reelRecord: ReelRecord) => void;
+  gameState: GameState;
 }
 
 export const useAppStore = create<AppState>()(
@@ -58,6 +79,11 @@ export const useAppStore = create<AppState>()(
         set((state) => {
           state.reelRecords.push(reelRecord);
         }),
+      gameState: {
+        date: { day: 1, month: 7, year: 1894 },
+        time: { hour: 6, minute: 0 },
+        weather: WeatherStatus.CLOUDY,
+      },
     }))
   )
 );

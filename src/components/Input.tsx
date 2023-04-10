@@ -4,6 +4,7 @@ export interface InputProps {
   value: string;
   setValue: (newValue: string) => void;
 
+  validator?: (newValue: string) => boolean;
   placeholder?: string;
 
   error?: string;
@@ -13,6 +14,7 @@ export function Input({
   label,
   value,
   setValue,
+  validator,
   placeholder,
   error,
 }: InputProps) {
@@ -26,7 +28,11 @@ export function Input({
           id={inputId}
           className="w-full border-2 border-indigo-300 p-1 bg-transparent"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            if (!validator || (validator && validator(e.target.value))) {
+              setValue(e.target.value);
+            }
+          }}
           placeholder={placeholder}
         />
       </div>

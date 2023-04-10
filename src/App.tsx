@@ -7,6 +7,10 @@ import { Popup } from './components/Popup';
 import { ControlPanel } from './components/ControlPanel';
 import { PlayerConfig } from './components/PlayerConfig';
 import { Inventory } from './components/Inventory';
+import { WorldStatus } from './components/WorldStatus';
+import { useAppStore } from './store/store';
+import { DEFAULT_UNNAMED_PLAYER_NAME } from './config/config';
+import { Avatar } from './components/Avatar';
 
 const GOAL_WIDTH = 30;
 
@@ -17,42 +21,49 @@ const goals: Goal[] = [
 ];
 
 export default function App() {
+  const { name, avatar, hp, terror } = useAppStore((state) => state.player);
+
   const [isPlayerConfigOpen, setIsPlayerConfigOpen] = useState(false);
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   return (
-    <div className="h-screen bg-slate-900 text-white flex flex-col gap-3 items-center font-serif">
-      <h1 className="w-full p-2 bg-blue-950 text-3xl text-center">
-        Fishing Simulator
-      </h1>
+    <div className="h-screen bg-slate-900 text-white flex flex-col font-serif">
+      <div className="px-4 py-2 flex flex-col gap-3">
+        <div className="flex gap-2">
+          <Avatar src={avatar} alt="Your photo" />
+          <div className="overflow-hidden">
+            <h1 className="truncate">
+              Captain {name || DEFAULT_UNNAMED_PLAYER_NAME}
+            </h1>
+            <p>{`Health: ${hp}`}</p>
+            <p>{`Terror: ${terror}`}</p>
+          </div>
+        </div>
 
-      <p>Day: 7, week: 15, year: 1864</p>
+        <WorldStatus />
 
-      <p>Weather report: endless waves</p>
+        <div className="flex gap-2 flex-wrap justify-center">
+          <Button text="To the sea!" />
+          <Button text="Return home" />
+          <Button text="Visit the shops" />
+          <Button text="Go to the chapel" />
+        </div>
 
-      <p>Temperature: 15 Celcius</p>
+        <Fishing goals={goals} />
 
-      <div className="flex gap-2 flex-wrap justify-center">
-        <Button text="To the sea!" />
-        <Button text="Return home" />
-        <Button text="Visit the shops" />
-        <Button text="Go to the chapel" />
+        <FishingLog />
+
+        <PlayerConfig
+          isOpen={isPlayerConfigOpen}
+          close={() => setIsPlayerConfigOpen(false)}
+        />
+
+        <Inventory
+          isOpen={isInventoryOpen}
+          close={() => setIsInventoryOpen(false)}
+        />
       </div>
-
-      <Fishing goals={goals} />
-
-      <FishingLog />
-
-      <PlayerConfig
-        isOpen={isPlayerConfigOpen}
-        close={() => setIsPlayerConfigOpen(false)}
-      />
-
-      <Inventory
-        isOpen={isInventoryOpen}
-        close={() => setIsInventoryOpen(false)}
-      />
 
       <ControlPanel
         togglePlayerConfig={() => {
