@@ -8,7 +8,7 @@ import { ControlPanel } from './components/ControlPanel';
 import { PlayerConfig } from './components/PlayerConfig';
 import { Inventory } from './components/Inventory';
 import { WorldStatus } from './components/WorldStatus';
-import { useAppStore } from './store/store';
+import { useAppStore, WorldLocation } from './store/store';
 import { DEFAULT_UNNAMED_PLAYER_NAME } from './config/config';
 import { Avatar } from './components/Avatar';
 
@@ -27,8 +27,11 @@ export default function App() {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
+  const playerLocation = useAppStore((state) => state.playerLocation);
+  const setPlayerLocation = useAppStore((state) => state.setPlayerLocation);
+
   return (
-    <div className="h-screen bg-slate-900 text-white flex flex-col font-serif">
+    <div className="relative h-screen bg-slate-900 text-white flex flex-col font-serif">
       <div className="px-4 py-2 flex flex-col gap-3">
         <div className="flex gap-2">
           <Avatar src={avatar} alt="Your photo" />
@@ -44,25 +47,23 @@ export default function App() {
         <WorldStatus />
 
         <div className="flex gap-2 flex-wrap justify-center">
-          <Button text="To the sea!" />
-          <Button text="Return home" />
-          <Button text="Visit the shops" />
-          <Button text="Go to the chapel" />
+          <Button
+            text="To the sea!"
+            disabled={playerLocation === WorldLocation.THE_SEA}
+            onClick={() => setPlayerLocation(WorldLocation.THE_SEA)}
+          />
+          <Button
+            text="Return home"
+            disabled={playerLocation === WorldLocation.THE_DOCKS}
+            onClick={() => setPlayerLocation(WorldLocation.THE_DOCKS)}
+          />
         </div>
 
-        <Fishing goals={goals} />
-
-        <FishingLog />
-
-        <PlayerConfig
-          isOpen={isPlayerConfigOpen}
-          close={() => setIsPlayerConfigOpen(false)}
-        />
-
-        <Inventory
-          isOpen={isInventoryOpen}
-          close={() => setIsInventoryOpen(false)}
-        />
+        {playerLocation === WorldLocation.THE_SEA && (
+          <div className="flex w-full justify-center">
+            <Fishing goals={goals} />
+          </div>
+        )}
       </div>
 
       <ControlPanel
@@ -75,6 +76,18 @@ export default function App() {
         toggleMap={() => {
           setIsMapOpen(true);
         }}
+      />
+
+      <PlayerConfig
+        isOpen={isPlayerConfigOpen}
+        close={() => setIsPlayerConfigOpen(false)}
+      />
+
+      <FishingLog />
+
+      <Inventory
+        isOpen={isInventoryOpen}
+        close={() => setIsInventoryOpen(false)}
       />
 
       <Popup title="Map" isOpen={isMapOpen}>

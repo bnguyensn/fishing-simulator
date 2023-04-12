@@ -17,6 +17,11 @@ export interface InventoryItem {
   obtainedTimestamp: number;
 }
 
+export enum WorldLocation {
+  THE_DOCKS = 'THE_DOCKS',
+  THE_SEA = 'THE_SEA',
+}
+
 export enum ReelRecordType {
   'HIT' = 'HIT',
   'MISS' = 'MISS',
@@ -34,7 +39,7 @@ export enum WeatherStatus {
   'THUNDERSTORM' = 'Thunderstorm',
 }
 
-export interface GameState {
+export interface WorldState {
   date: {
     year: number;
     month: number;
@@ -51,9 +56,11 @@ export interface AppState {
   player: Player;
   updatePlayer: (newValue: Partial<Player>) => void;
   inventory: Record<string, InventoryItem>;
+  playerLocation: WorldLocation;
+  setPlayerLocation: (newValue: WorldLocation) => void;
   reelRecords: ReelRecord[];
   addReelRecord: (reelRecord: ReelRecord) => void;
-  gameState: GameState;
+  worldState: WorldState;
 }
 
 export const useAppStore = create<AppState>()(
@@ -74,12 +81,17 @@ export const useAppStore = create<AppState>()(
       inventory: {
         '4': { itemId: 'fish-1', obtainedTimestamp: 0 },
       },
+      playerLocation: WorldLocation.THE_DOCKS,
+      setPlayerLocation: (newLocation) =>
+        set((state) => {
+          state.playerLocation = newLocation;
+        }),
       reelRecords: [],
       addReelRecord: (reelRecord) =>
         set((state) => {
           state.reelRecords.push(reelRecord);
         }),
-      gameState: {
+      worldState: {
         date: { day: 1, month: 7, year: 1894 },
         time: { hour: 6, minute: 0 },
         weather: WeatherStatus.CLOUDY,

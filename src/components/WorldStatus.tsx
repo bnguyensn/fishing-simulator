@@ -1,4 +1,4 @@
-import { GameState, useAppStore, WeatherStatus } from '../store/store';
+import { WorldState, useAppStore, WeatherStatus } from '../store/store';
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   day: '2-digit',
@@ -15,7 +15,7 @@ type DateTimeTexts = Partial<
 const getDateTimeTexts = ({
   date,
   time,
-}: Pick<GameState, 'date' | 'time'>): DateTimeTexts => {
+}: Pick<WorldState, 'date' | 'time'>): DateTimeTexts => {
   return dateFormatter
     .formatToParts(
       new Date(date.year, date.month, date.day, time.hour, time.minute)
@@ -34,7 +34,7 @@ const weatherIcon: Record<WeatherStatus, string> = {
 };
 
 export function WorldStatus() {
-  const { date, time, weather } = useAppStore((state) => state.gameState);
+  const { date, time, weather } = useAppStore((state) => state.worldState);
 
   const dateTime = getDateTimeTexts({ date, time });
 
